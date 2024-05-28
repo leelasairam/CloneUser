@@ -38,6 +38,9 @@
 
                 <!-- modal body start -->
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div style="text-align: center;color:rgb(38, 28, 72)" if:true={spin}>
+                        <b>Loading...</b>
+                    </div>
                     <p>Select the user from below:</p>
                     <input class="search" style="margin-right: 0.5rem;"/> <button onclick={GetUsers}>Search</button>
                     <template for:each={users} for:item="i">
@@ -60,4 +63,9 @@
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
     <!-- modal end -->
+
+    <!--Spinner-->
+    <div class="exampleHolder" if:true={spin}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </div>
 </template>

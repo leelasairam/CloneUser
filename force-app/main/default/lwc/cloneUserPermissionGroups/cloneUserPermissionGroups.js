@@ -7,6 +7,7 @@ export default class CloneUserPermissionGroups extends LightningElement {
     isShowModal = false;
     @track users = [];
     btn;
+    spin = false;
     handleModel(){
         this.isShowModal = !this.isShowModal;
     }
@@ -27,6 +28,7 @@ export default class CloneUserPermissionGroups extends LightningElement {
     }
 
     async GetUsers(){
+        this.spin = true;
         const value = this.template.querySelector(".search").value;
         await FetchUsers({KeyWord:value})
         .then(result => {
@@ -36,6 +38,7 @@ export default class CloneUserPermissionGroups extends LightningElement {
         .catch(error =>{
             console.log(error);
         })
+        this.spin=false;
     }
 
     InsertInp(event){
@@ -49,6 +52,7 @@ export default class CloneUserPermissionGroups extends LightningElement {
     }
 
     async CloneUser(){
+        this.spin=true;
         const IsPS = this.template.querySelector('.ps').checked;
         const IsPGQ = this.template.querySelector('.pgq').checked;
         const IsPSA = this.template.querySelector('.psa').checked;
@@ -66,5 +70,9 @@ export default class CloneUserPermissionGroups extends LightningElement {
                 this.Toast('Error',error.body.message,'error');
             });
         }
+        else{
+            this.Toast('Error','Please provide UserId & Clone Id and select atleast one component to clone.','warning');
+        }
+        this.spin=false;
     }
 }
